@@ -1,0 +1,32 @@
+[
+  {
+    "name": "ไร้พลังเวท",
+    "weight": 20,
+    "isDemonic": false,
+    "atkMod": 0.7,
+    "defMod": 1.0,
+    "evaBonus": 5,
+    "critBonus": 0,
+    "aura": "ปุถุชนไร้เวท"
+  },
+  {
+    "name": "มานาบริสุทธิ์",
+    "weight": 30,
+    "isDemonic": false,
+    "atkMod": 1.1,
+    "defMod": 1.1,
+    "evaBonus": 5,
+    "critBonus": 5,
+    "aura": "ประกายแสงบริสุทธิ์"
+  },
+  {
+    "name": "มานามารกลืนโลหิต",
+    "weight": 7,
+    "isDemonic": true,
+    "atkMod": 2.3,
+    "defMod": 0.9,
+    "evaBonus": 12,
+    "critBonus": 25,
+    "aura": "ไอสังหารโลหิตทมิฬ"
+  }
+]
