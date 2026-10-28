@@ -2,6 +2,7 @@
   {
     "name": "ไร้พลังเวท",
     "weight": 20,
+    "element": "none",
     "isDemonic": false,
     "atkMod": 0.7,
     "defMod": 1.0,
@@ -11,7 +12,8 @@
   },
   {
     "name": "มานาบริสุทธิ์",
-    "weight": 30,
+    "weight": 25,
+    "element": "neutral",
     "isDemonic": false,
     "atkMod": 1.1,
     "defMod": 1.1,
@@ -20,13 +22,157 @@
     "aura": "ประกายแสงบริสุทธิ์"
   },
   {
+    "name": "มานาปฐพีศิลาแกร่ง",
+    "weight": 14,
+    "element": "earth",
+    "isDemonic": false,
+    "atkMod": 1.1,
+    "defMod": 1.7,
+    "evaBonus": 0,
+    "critBonus": 5,
+    "aura": "ไอปฐพีศิลาสีอำพัน"
+  },
+  {
+    "name": "มานากระแสน้ำวารีทิพย์",
+    "weight": 14,
+    "element": "water",
+    "isDemonic": false,
+    "atkMod": 1.0,
+    "defMod": 1.3,
+    "evaBonus": 12,
+    "critBonus": 5,
+    "aura": "ละอองคลื่นน้ำสีคราม"
+  },
+  {
+    "name": "มานาวายุพริ้วไหว",
+    "weight": 14,
+    "element": "wind",
+    "isDemonic": false,
+    "atkMod": 1.2,
+    "defMod": 0.9,
+    "evaBonus": 25,
+    "critBonus": 12,
+    "aura": "สายลมหมุนสีมรกต"
+  },
+  {
+    "name": "มานาเพลิงผลาญสวรรค์",
+    "weight": 14,
+    "element": "fire",
+    "isDemonic": false,
+    "atkMod": 1.6,
+    "defMod": 0.9,
+    "evaBonus": 8,
+    "critBonus": 18,
+    "aura": "เปลวเพลิงสีชาด"
+  },
+  {
+    "name": "มานาอัสนีบาตพิโรธ",
+    "weight": 10,
+    "element": "lightning",
+    "isDemonic": false,
+    "atkMod": 1.8,
+    "defMod": 0.8,
+    "evaBonus": 15,
+    "critBonus": 22,
+    "aura": "ประกายอัสนีบาตสีม่วง"
+  },
+  {
+    "name": "มานาเหมันต์นิรันดร์",
+    "weight": 10,
+    "element": "ice",
+    "isDemonic": false,
+    "atkMod": 1.1,
+    "defMod": 1.5,
+    "evaBonus": 10,
+    "critBonus": 8,
+    "aura": "ไอเย็นเกล็ดหิมะสีขาวบริสุทธิ์"
+  },
+  {
+    "name": "มานาแสงศักดิ์สิทธิ์รุ่งอรุณ",
+    "weight": 8,
+    "element": "light",
+    "isDemonic": false,
+    "atkMod": 1.3,
+    "defMod": 1.4,
+    "evaBonus": 10,
+    "critBonus": 10,
+    "aura": "แสงสุริยันต์สีทองผ่องอำไพ"
+  },
+  {
+    "name": "มานากาลเวลาและมิติ",
+    "weight": 3,
+    "element": "time",
+    "isDemonic": false,
+    "atkMod": 1.5,
+    "defMod": 1.3,
+    "evaBonus": 35,
+    "critBonus": 25,
+    "aura": "วังวนห้วงกาลเวลาสีรุ้ง"
+  },
+  {
     "name": "มานามารกลืนโลหิต",
-    "weight": 7,
+    "weight": 5,
+    "element": "blood",
     "isDemonic": true,
-    "atkMod": 2.3,
+    "atkMod": 2.4,
     "defMod": 0.9,
     "evaBonus": 12,
-    "critBonus": 25,
+    "critBonus": 28,
     "aura": "ไอสังหารโลหิตทมิฬ"
+  },
+  {
+    "name": "มานามารเพลิงอเวจี",
+    "weight": 4,
+    "element": "fire",
+    "isDemonic": true,
+    "atkMod": 2.2,
+    "defMod": 0.8,
+    "evaBonus": 15,
+    "critBonus": 25,
+    "aura": "เพลิงนรกสีดำทมิฬ"
+  },
+  {
+    "name": "มานามารวายุทมิฬ",
+    "weight": 4,
+    "element": "wind",
+    "isDemonic": true,
+    "atkMod": 1.9,
+    "defMod": 0.7,
+    "evaBonus": 30,
+    "critBonus": 28,
+    "aura": "พายุหมุนทมิฬกลืนฟ้า"
+  },
+  {
+    "name": "มานามารอัสนีทมิฬ",
+    "weight": 4,
+    "element": "lightning",
+    "isDemonic": true,
+    "atkMod": 2.3,
+    "defMod": 0.7,
+    "evaBonus": 20,
+    "critBonus": 35,
+    "aura": "สายฟ้ามารทมิฬฉีกมิติ"
+  },
+  {
+    "name": "มานามารเงาไร้ลักษณ์",
+    "weight": 4,
+    "element": "shadow",
+    "isDemonic": true,
+    "atkMod": 1.8,
+    "defMod": 0.7,
+    "evaBonus": 35,
+    "critBonus": 32,
+    "aura": "หมอกเงามืดไร้ตัวตน"
+  },
+  {
+    "name": "มานามารกลืนกาลเวลา",
+    "weight": 2,
+    "element": "time",
+    "isDemonic": true,
+    "atkMod": 2.2,
+    "defMod": 1.0,
+    "evaBonus": 40,
+    "critBonus": 40,
+    "aura": "หลุมดำกาลเวลาดูดกลืนชีวิต"
   }
 ]

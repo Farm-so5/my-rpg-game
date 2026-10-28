@@ -1,0 +1,84 @@
+{
+  "comment": "ตัวเลขสมดุลทั้งหมดเป็นค่าเดาเริ่มต้นสำหรับการทดสอบ (Initial educated guesses to be tuned)",
+  "cultivation": {
+    "expToNext": [
+      100,
+      250,
+      500,
+      1000,
+      2000,
+      3800,
+      6500,
+      11000,
+      18000,
+      35000
+    ],
+    "baseTrainExp": 25,
+    "sprExpMod": 1.2,
+    "realmExpMultiplier": 0.22,
+    "trainStrainGain": 3,
+    "breakthroughBaseChance": [
+      0.85,
+      0.75,
+      0.60,
+      0.50,
+      0.40,
+      0.30,
+      0.22,
+      0.15,
+      0.05
+    ],
+    "breakthroughLuckMod": 0.002,
+    "breakthroughFailStrain": 18,
+    "breakthroughFailHpDamagePct": 0.25,
+    "breakthroughStatGains": {
+      "str": 3,
+      "vit": 3,
+      "agi": 2,
+      "spr": 4,
+      "hp": 25,
+      "mp": 30
+    },
+    "breakthroughLifespanGains": [
+      0,
+      0,
+      0,
+      5,
+      5,
+      10,
+      20,
+      35,
+      100
+    ]
+  },
+  "rest": {
+    "strainThreshold": 55,
+    "hpThresholdPct": 0.5,
+    "strainRecovery": 18,
+    "hpRecoveryPct": 0.35,
+    "mpRecoveryPct": 0.4
+  },
+  "suspicion": {
+    "demonicBaseAnnualGain": 5,
+    "passiveDecay": 1,
+    "thresholdHunting": 100
+  },
+  "combat": {
+    "strAtkMod": 8,
+    "sprAtkMod": 4,
+    "vitDefMod": 7,
+    "sprDefMod": 3,
+    "agiCritMod": 0.3,
+    "agiEvaMod": 0.4,
+    "agiSpdMod": 2,
+    "baseSpd": 100
+  },
+  "events": {
+    "annualTriggerChance": 0.30,
+    "luckChanceMod": 0.001
+  },
+  "economy": {
+    "annualGoldMin": 5,
+    "annualGoldMax": 25
+  }
+}

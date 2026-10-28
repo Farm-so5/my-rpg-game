@@ -1,0 +1,11 @@
+{
+  "name": "chronicles-of-reincarnation",
+  "version": "0.1.0",
+  "description": "Chronicles of Reincarnation: RPG Life Simulator",
+  "private": true,
+  "scripts": {
+    "sim": "node tools/sim.js",
+    "sim:report": "node tools/sim.js 2000 --export",
+    "validate": "node tools/validate.js"
+  }
+}
