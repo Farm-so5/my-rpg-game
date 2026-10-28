@@ -155,10 +155,11 @@ const eventIds = new Set();
 const VALID_STATS = new Set([
     'realm', 'exp', 'hp', 'maxHp', 'mp', 'maxMp',
     'str', 'vit', 'agi', 'spr', 'strain', 'suspicion',
-    'luck', 'gold', 'age', 'maxAge', 'power', 'demonic', 'expToNext'
+    'luck', 'gold', 'age', 'maxAge', 'power', 'demonic', 'expToNext',
+    'rankTitle', 'rankLevel', 'kingdom'
 ]);
 const VALID_OPS = new Set(['>=', '<=', '>', '<', '==', '!=']);
-const VALID_EFFECT_OPS = new Set(['add', 'set', 'hurt', 'give', 'equip', 'log', 'die']);
+const VALID_EFFECT_OPS = new Set(['add', 'set', 'hurt', 'give', 'equip', 'learnMana', 'log', 'die']);
 
 function validateCondition(cond, file, context) {
     if (!cond.stat) {
@@ -194,6 +195,14 @@ function validateEffect(eff, file, context) {
             logError(file, `${context}: effect '${eff.op}' ขาด field 'item' (item id)`);
         } else if (!itemIds.has(eff.item)) {
             logError(file, `${context}: effect '${eff.op}' อ้างถึง item id '${eff.item}' ซึ่งไม่มีอยู่ใน items.json!`);
+        }
+    }
+
+    if (eff.op === 'learnMana') {
+        if (!eff.mana) {
+            logError(file, `${context}: effect 'learnMana' ขาด field 'mana' (mana name)`);
+        } else if (!manaNames.has(eff.mana)) {
+            logError(file, `${context}: effect 'learnMana' อ้างถึง mana '${eff.mana}' ซึ่งไม่มีอยู่ใน manas.json!`);
         }
     }
 

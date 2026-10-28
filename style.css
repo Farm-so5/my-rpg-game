@@ -8,3 +8,11 @@ body { background-color: #0b0a0e; color: #f8fafc; font-family: 'Segoe UI', Tahom
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #14100e; }
 ::-webkit-scrollbar-thumb { background: #5c4328; border-radius: 3px; }
+.pixelated {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+.portrait-glow {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.25), inset 0 0 10px rgba(0,0,0,0.8);
+}

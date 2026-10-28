@@ -223,6 +223,15 @@ function applyEffects(effects, player) {
                 if (!player.equipment) player.equipment = {};
                 player.equipment[itemObj.slot] = itemObj;
             }
+        } else if (eff.op === 'learnMana' && eff.mana) {
+            const manaObj = manas.find(m => m.name === eff.mana);
+            if (manaObj) {
+                if (!player.manas) player.manas = [ player.manaObj ];
+                if (player.manas.length < 2) {
+                    player.manas.push(manaObj);
+                    player.secondaryMana = manaObj;
+                }
+            }
         } else if (eff.op === 'die') {
             player.isAlive = false;
             player.deathReason = eff.reason || "สิ้นชีพกะทันหัน";
@@ -379,8 +388,8 @@ for (let i = 0; i < numLives; i++) {
             stats.manas[mName].totalAge += p.age;
             stats.manas[mName].totalRealm += p.realm;
             stats.manas[mName].deaths[reason] = (stats.manas[mName].deaths[reason] || 0) + 1;
-            if (reason.includes('ศาสนจักร') || reason.includes('สังหาร')) stats.manas[mName].suspicionDeaths++;
-            if (reason.includes('ชีพจร') || reason.includes('บอบช้ำ')) stats.manas[mName].strainDeaths++;
+            if (reason.includes('ศาสนจักร') || reason.includes('สังหาร') || reason.includes('กวาดล้าง') || reason.includes('ไต่สวน')) stats.manas[mName].suspicionDeaths++;
+            if (reason.includes('ชีพจร') || reason.includes('บอบช้ำ') || reason.includes('โอเวอร์โหลด') || reason.includes('วงจร')) stats.manas[mName].strainDeaths++;
         }
 
         // สถิติตาม Kingdom
@@ -389,7 +398,7 @@ for (let i = 0; i < numLives; i++) {
             stats.kingdoms[kName].count++;
             stats.kingdoms[kName].totalAge += p.age;
             stats.kingdoms[kName].deaths[reason] = (stats.kingdoms[kName].deaths[reason] || 0) + 1;
-            if (reason.includes('ศาสนจักร') || reason.includes('สังหาร')) stats.kingdoms[kName].suspicionDeaths++;
+            if (reason.includes('ศาสนจักร') || reason.includes('สังหาร') || reason.includes('กวาดล้าง') || reason.includes('ไต่สวน')) stats.kingdoms[kName].suspicionDeaths++;
         }
 
     } catch (err) {
@@ -625,9 +634,9 @@ const ciRealm5Plus = calcProportionCI99(r5PlusCount, totalSimulated);
 const ciLifespan = calcMeanCI99(stats.ages);
 const ciInfantDeath = calcProportionCI99(bracketInfant, totalSimulated);
 
-// อัตราการตายจากความเสี่ยงสูง (มาร/ศาสนจักร/ระเบิดชีพจร)
+// อัตราการตายจากความเสี่ยงสูง (มาร/ศาสนจักร/ระเบิดชีพจร/มานาโอเวอร์โหลด)
 const riskDeaths = Object.entries(stats.deathReasons)
-    .filter(([r]) => r.includes('ชีพจร') || r.includes('ศาสนจักร') || r.includes('สังหาร') || r.includes('มาร'))
+    .filter(([r]) => r.includes('ชีพจร') || r.includes('ศาสนจักร') || r.includes('สังหาร') || r.includes('มาร') || r.includes('โอเวอร์โหลด') || r.includes('วงจร') || r.includes('กวาดล้าง') || r.includes('ไต่สวน'))
     .reduce((sum, [, cnt]) => sum + cnt, 0);
 const ciRiskDeath = calcProportionCI99(riskDeaths, totalSimulated);
 

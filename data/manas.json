@@ -1,6 +1,7 @@
 [
   {
     "name": "ไร้พลังเวท",
+    "icon": "👤",
     "weight": 20,
     "element": "none",
     "isDemonic": false,
@@ -12,6 +13,7 @@
   },
   {
     "name": "มานาบริสุทธิ์",
+    "icon": "✨",
     "weight": 25,
     "element": "neutral",
     "isDemonic": false,
@@ -23,6 +25,7 @@
   },
   {
     "name": "มานาปฐพีศิลาแกร่ง",
+    "icon": "🪨",
     "weight": 14,
     "element": "earth",
     "isDemonic": false,
@@ -34,6 +37,7 @@
   },
   {
     "name": "มานากระแสน้ำวารีทิพย์",
+    "icon": "💧",
     "weight": 14,
     "element": "water",
     "isDemonic": false,
@@ -45,6 +49,7 @@
   },
   {
     "name": "มานาวายุพริ้วไหว",
+    "icon": "🌪️",
     "weight": 14,
     "element": "wind",
     "isDemonic": false,
@@ -56,6 +61,7 @@
   },
   {
     "name": "มานาเพลิงผลาญสวรรค์",
+    "icon": "🔥",
     "weight": 14,
     "element": "fire",
     "isDemonic": false,
@@ -67,6 +73,7 @@
   },
   {
     "name": "มานาอัสนีบาตพิโรธ",
+    "icon": "⚡",
     "weight": 10,
     "element": "lightning",
     "isDemonic": false,
@@ -78,6 +85,7 @@
   },
   {
     "name": "มานาเหมันต์นิรันดร์",
+    "icon": "❄️",
     "weight": 10,
     "element": "ice",
     "isDemonic": false,
@@ -89,6 +97,7 @@
   },
   {
     "name": "มานาแสงศักดิ์สิทธิ์รุ่งอรุณ",
+    "icon": "☀️",
     "weight": 8,
     "element": "light",
     "isDemonic": false,
@@ -100,6 +109,7 @@
   },
   {
     "name": "มานากาลเวลาและมิติ",
+    "icon": "⏳",
     "weight": 3,
     "element": "time",
     "isDemonic": false,
@@ -111,6 +121,7 @@
   },
   {
     "name": "มานามารกลืนโลหิต",
+    "icon": "🩸",
     "weight": 5,
     "element": "blood",
     "isDemonic": true,
@@ -122,6 +133,7 @@
   },
   {
     "name": "มานามารเพลิงอเวจี",
+    "icon": "🖤🔥",
     "weight": 4,
     "element": "fire",
     "isDemonic": true,
@@ -133,6 +145,7 @@
   },
   {
     "name": "มานามารวายุทมิฬ",
+    "icon": "🖤🌪️",
     "weight": 4,
     "element": "wind",
     "isDemonic": true,
@@ -144,6 +157,7 @@
   },
   {
     "name": "มานามารอัสนีทมิฬ",
+    "icon": "🖤⚡",
     "weight": 4,
     "element": "lightning",
     "isDemonic": true,
@@ -155,6 +169,7 @@
   },
   {
     "name": "มานามารเงาไร้ลักษณ์",
+    "icon": "🌑",
     "weight": 4,
     "element": "shadow",
     "isDemonic": true,
@@ -166,6 +181,7 @@
   },
   {
     "name": "มานามารกลืนกาลเวลา",
+    "icon": "⌛💀",
     "weight": 2,
     "element": "time",
     "isDemonic": true,

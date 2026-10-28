@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,31 +8,48 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="min-h-screen flex flex-col items-center justify-center p-2 sm:p-4">
 
     <!-- Main Container -->
     <div class="w-full max-w-5xl rpg-panel rounded-2xl p-4 sm:p-6 relative overflow-hidden">
-        
+
         <!-- Top Header & Time Controls -->
         <div class="border-b border-amber-900/60 pb-3 mb-3 flex flex-wrap justify-between items-center gap-2">
             <div class="flex items-center gap-3">
-                <h1 class="text-lg sm:text-xl font-bold text-amber-400 tracking-wide">📜 หน้าต่างสถานะตัวละคร (วัฏจักรแห่งโชคชะตา)</h1>
-                <span id="game-status" class="text-xs px-2.5 py-0.5 bg-stone-900 text-stone-400 border border-stone-700 rounded-full">รอการจุติ</span>
+                <h1 class="text-lg sm:text-xl font-bold text-amber-400 tracking-wide">📜 หน้าต่างสถานะตัวละคร
+                    (วัฏจักรแห่งโชคชะตา)</h1>
+                <span id="game-status"
+                    class="text-xs px-2.5 py-0.5 bg-stone-900 text-stone-400 border border-stone-700 rounded-full">รอการจุติ</span>
             </div>
 
             <!-- Speed Controls -->
-            <div id="time-controls" class="hidden flex items-center gap-1 bg-black/60 p-1 rounded-xl border border-amber-900/50">
-                <button onclick="setSpeed(0)" id="btn-speed-0" class="px-3 py-1 text-xs font-bold rounded-lg transition cursor-pointer bg-amber-600 text-white">⏸ หยุด</button>
-                <button onclick="setSpeed(1)" id="btn-speed-1" class="px-3 py-1 text-xs font-bold rounded-lg transition cursor-pointer text-stone-400 hover:text-white">▶ 1x</button>
-                <button onclick="setSpeed(2)" id="btn-speed-2" class="px-3 py-1 text-xs font-bold rounded-lg transition cursor-pointer text-stone-400 hover:text-white">⏩ 2x</button>
-                <button onclick="setSpeed(3)" id="btn-speed-3" class="px-3 py-1 text-xs font-bold rounded-lg transition cursor-pointer text-stone-400 hover:text-white">⚡ 3x</button>
-                <button onclick="saveGame()" class="px-3 py-1 text-xs font-bold rounded-lg transition cursor-pointer bg-sky-800 text-white hover:bg-sky-700 ml-2">💾 เซฟเกม</button>
+            <div id="time-controls"
+                class="hidden flex items-center gap-1 bg-black/60 p-1 rounded-xl border border-amber-900/50">
+                <button onclick="setSpeed(0)" id="btn-speed-0"
+                    class="px-3 py-1 text-xs font-bold rounded-lg transition cursor-pointer bg-amber-600 text-white">⏸
+                    หยุด</button>
+                <button onclick="setSpeed(1)" id="btn-speed-1"
+                    class="px-3 py-1 text-xs font-bold rounded-lg transition cursor-pointer text-stone-400 hover:text-white">▶
+                    1x</button>
+                <button onclick="setSpeed(2)" id="btn-speed-2"
+                    class="px-3 py-1 text-xs font-bold rounded-lg transition cursor-pointer text-stone-400 hover:text-white">⏩
+                    2x</button>
+                <button onclick="setSpeed(3)" id="btn-speed-3"
+                    class="px-3 py-1 text-xs font-bold rounded-lg transition cursor-pointer text-stone-400 hover:text-white">⚡
+                    3x</button>
+                <button onclick="saveGame()"
+                    class="px-3 py-1 text-xs font-bold rounded-lg transition cursor-pointer bg-sky-800 text-white hover:bg-sky-700 ml-2">💾
+                    เซฟเกม</button>
             </div>
         </div>
 
         <!-- Year Progress Bar -->
-        <div id="progress-wrapper" class="hidden w-full bg-black h-1.5 rounded-full overflow-hidden mb-4 border border-amber-950">
-            <div id="year-progress" class="bg-gradient-to-r from-amber-600 via-yellow-400 to-emerald-400 h-full w-0 progress-transition"></div>
+        <div id="progress-wrapper"
+            class="hidden w-full bg-black h-1.5 rounded-full overflow-hidden mb-4 border border-amber-950">
+            <div id="year-progress"
+                class="bg-gradient-to-r from-amber-600 via-yellow-400 to-emerald-400 h-full w-0 progress-transition">
+            </div>
         </div>
 
         <!-- Start Screen -->
@@ -39,84 +57,164 @@
             <div class="text-5xl mb-4">⛩️</div>
             <h2 class="text-2xl font-bold text-amber-300 mb-2">เข้าสู่วัฏจักรการเกิดใหม่</h2>
             <p class="text-stone-400 mb-6 max-w-lg mx-auto text-sm leading-relaxed">
-                สุ่มเกิดใน 5 ขั้วอำนาจ 7 ชาติกำเนิด และ 6 รูปแบบพลังในร่าง สะสมศาสตราวุธ ทะลวงขอบเขตพลัง 9 ขั้น และเอาชีวิตรอดด้วยเล่ห์เหลี่ยมหรือพลังที่เหนือกว่า
+                สุ่มเกิดใน 5 ขั้วอำนาจ 7 ชาติกำเนิด และ 6 รูปแบบพลังในร่าง สะสมศาสตราวุธ ทะลวงขอบเขตพลัง 9 ขั้น
+                และเอาชีวิตรอดด้วยเล่ห์เหลี่ยมหรือพลังที่เหนือกว่า
             </p>
             <div class="flex justify-center gap-4">
-                <button onclick="startGame()" class="bg-gradient-to-r from-amber-700 to-red-700 hover:from-amber-600 hover:to-red-600 border border-amber-400/50 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition transform hover:scale-105 cursor-pointer">
+                <button onclick="startGame()"
+                    class="bg-gradient-to-r from-amber-700 to-red-700 hover:from-amber-600 hover:to-red-600 border border-amber-400/50 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition transform hover:scale-105 cursor-pointer">
                     ✨ สุ่มดวงชะตาเกิดใหม่
                 </button>
-                <button onclick="loadGame()" class="bg-stone-800 hover:bg-stone-700 border border-stone-500 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition cursor-pointer">
+                <button onclick="loadGame()"
+                    class="bg-stone-800 hover:bg-stone-700 border border-stone-500 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition cursor-pointer">
                     📂 โหลดเซฟ
                 </button>
             </div>
         </div>
 
         <!-- MAIN GAME UI -->
+        <!-- MAIN GAME UI -->
         <div id="game-panel" class="hidden space-y-4">
-            
-            <div class="bg-black/40 border border-amber-900/50 rounded-xl p-3 grid grid-cols-2 md:grid-cols-4 gap-3 text-xs sm:text-sm">
-                <div><span class="text-stone-400">ชาติกำเนิด:</span> <span id="p-origin" class="font-bold text-amber-300">-</span></div>
-                <div><span class="text-stone-400">อาณาจักร:</span> <span id="p-kingdom" class="font-bold text-emerald-400">-</span></div>
-                <div><span class="text-stone-400">อายุขัย:</span> <span class="font-bold text-white"><span id="p-age">0</span> / <span id="p-max-age">100</span> ปี</span></div>
-                <div><span class="text-stone-400">ขอบเขตพลัง:</span> <span id="p-realm" class="font-bold text-cyan-400">ขั้นที่ 1</span></div>
+
+            <div
+                class="bg-black/40 border border-amber-900/50 rounded-xl p-3 grid grid-cols-2 md:grid-cols-4 gap-3 text-xs sm:text-sm">
+                <div class="flex items-center gap-1.5"><span class="text-stone-400">📜 ชาติกำเนิด (Origin):</span> <span
+                        id="p-origin" class="font-bold text-amber-300">-</span></div>
+                <div class="flex items-center gap-1.5"><span class="text-stone-400">🏰 อาณาจักร (Kingdom):</span> <span
+                        id="p-kingdom" class="font-bold text-emerald-400">-</span></div>
+                <div class="flex items-center gap-1.5"><span class="text-stone-400">⏳ อายุขัย (Age):</span> <span
+                        class="font-bold text-white"><span id="p-age">0</span> / <span id="p-max-age">100</span>
+                        ปี</span></div>
+                <div class="flex items-center gap-1.5"><span class="text-stone-400">⚡ ลำดับวงแหวนเวท (Circle):</span>
+                    <span id="p-realm" class="font-bold text-cyan-400">วงแหวนเวทระดับ 1</span></div>
                 <div class="col-span-2 flex items-center gap-2">
-                    <span class="text-stone-400 shrink-0">ความก้าวหน้าขั้นพลัง:</span>
+                    <span class="text-stone-400 shrink-0">📈 ความเชี่ยวชาญเวทมนตร์ (Proficiency):</span>
                     <div class="w-full bg-stone-900 h-3 rounded-full overflow-hidden border border-stone-700 relative">
                         <div id="exp-bar" class="bg-emerald-500 h-full w-0 transition-all duration-300"></div>
-                        <span id="exp-text" class="absolute inset-0 text-[10px] flex items-center justify-center font-bold text-white drop-shadow">0%</span>
+                        <span id="exp-text"
+                            class="absolute inset-0 text-[10px] flex items-center justify-center font-bold text-white drop-shadow">0%</span>
                     </div>
                 </div>
-                <div class="col-span-2 flex items-center justify-between gap-2">
-                    <div><span class="text-stone-400">รูปแบบพลัง:</span> <span id="p-mana-type" class="font-bold text-purple-400">-</span></div>
-                    <div class="text-amber-400 font-bold">💰 <span id="stat-gold">0</span> เหรียญ</div>
+                <div
+                    class="col-span-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-purple-950/20 p-2 rounded-lg border border-purple-900/40">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="text-stone-400 text-xs shrink-0">🔮 ศาสตร์มนตราทวิธาตุ:</span>
+                        <div class="flex items-center gap-1.5">
+                            <span id="p-mana-slot-1"
+                                class="px-2 py-0.5 rounded bg-purple-900/50 border border-purple-600/60 text-purple-200 text-xs font-semibold"
+                                title="ศาสตร์เวทหลัก (Slot 1)">-</span>
+                            <span class="text-stone-500 text-xs">+</span>
+                            <span id="p-mana-slot-2"
+                                class="px-2 py-0.5 rounded bg-stone-900/70 border border-stone-700/60 text-stone-400 text-xs font-medium"
+                                title="ศาสตร์เวทรอง (Slot 2)">ว่างเปล่า</span>
+                        </div>
+                        <span id="p-mana-resonance"
+                            class="text-[11px] px-2 py-0.5 rounded-full bg-stone-800 text-stone-300 border border-stone-600"
+                            title="ปฏิกิริยามนตราธาตุ">👤 มนตราธาตุเดี่ยว</span>
+                    </div>
+                    <div
+                        class="text-amber-400 font-bold bg-amber-950/50 px-2.5 py-1 rounded-lg border border-amber-800/70 flex items-center gap-1 self-end sm:self-auto shrink-0 text-xs">
+                        💰 <span id="stat-gold">0</span> เหรียญทอง
+                    </div>
                 </div>
             </div>
 
             <!-- Middle Section -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
                 <!-- Left: Equipment & Avatar -->
-                <div class="lg:col-span-7 bg-black/30 border border-amber-900/50 rounded-xl p-4 flex flex-col justify-between">
+                <div
+                    class="lg:col-span-7 bg-black/30 border border-amber-900/50 rounded-xl p-4 flex flex-col justify-between">
                     <div class="grid grid-cols-5 gap-2 items-center my-auto">
                         <div class="space-y-2.5 flex flex-col items-center">
-                            <div onclick="unequipSlot('weapon')" id="slot-weapon" class="rpg-slot empty w-14 h-14 rounded-lg flex flex-col items-center justify-center cursor-pointer relative"><span class="text-xl">🗡️</span><span class="text-[9px] text-stone-400 mt-0.5">อาวุธ</span></div>
-                            <div onclick="unequipSlot('gloves')" id="slot-gloves" class="rpg-slot empty w-14 h-14 rounded-lg flex flex-col items-center justify-center cursor-pointer relative"><span class="text-xl">🧤</span><span class="text-[9px] text-stone-400 mt-0.5">ถุงมือ</span></div>
-                            <div onclick="unequipSlot('armor')" id="slot-armor" class="rpg-slot empty w-14 h-14 rounded-lg flex flex-col items-center justify-center cursor-pointer relative"><span class="text-xl">🥋</span><span class="text-[9px] text-stone-400 mt-0.5">เกราะ</span></div>
-                            <div onclick="unequipSlot('ring')" id="slot-ring" class="rpg-slot empty w-14 h-14 rounded-lg flex flex-col items-center justify-center cursor-pointer relative"><span class="text-xl">💍</span><span class="text-[9px] text-stone-400 mt-0.5">แหวน</span></div>
+                            <div onclick="unequipSlot('weapon')" id="slot-weapon"
+                                class="rpg-slot empty w-14 h-14 rounded-lg flex flex-col items-center justify-center cursor-pointer relative">
+                                <span class="text-xl">🗡️</span><span
+                                    class="text-[9px] text-stone-400 mt-0.5">อาวุธ</span></div>
+                            <div onclick="unequipSlot('gloves')" id="slot-gloves"
+                                class="rpg-slot empty w-14 h-14 rounded-lg flex flex-col items-center justify-center cursor-pointer relative">
+                                <span class="text-xl">🧤</span><span
+                                    class="text-[9px] text-stone-400 mt-0.5">ถุงมือ</span></div>
+                            <div onclick="unequipSlot('armor')" id="slot-armor"
+                                class="rpg-slot empty w-14 h-14 rounded-lg flex flex-col items-center justify-center cursor-pointer relative">
+                                <span class="text-xl">🥋</span><span
+                                    class="text-[9px] text-stone-400 mt-0.5">ชุดเกราะ</span></div>
+                            <div onclick="unequipSlot('ring')" id="slot-ring"
+                                class="rpg-slot empty w-14 h-14 rounded-lg flex flex-col items-center justify-center cursor-pointer relative">
+                                <span class="text-xl">💍</span><span
+                                    class="text-[9px] text-stone-400 mt-0.5">แหวนมนตรา</span></div>
                         </div>
 
-                        <div class="col-span-3 bg-gradient-to-b from-stone-900/90 to-black border border-amber-900/60 rounded-xl h-64 flex flex-col items-center justify-between p-3 relative shadow-inner">
-                            <div class="text-[11px] text-amber-200/80 font-semibold" id="avatar-title">ผู้ฝึกตนเร่ร่อน</div>
-                            <div class="my-auto flex flex-col items-center">
-                                <div id="avatar-icon" class="text-6xl drop-shadow-[0_0_12px_rgba(245,158,11,0.4)]">🧘‍♂️</div>
-                                <div id="avatar-aura" class="text-xs text-purple-300 mt-2 font-medium px-2 py-0.5 bg-purple-950/60 border border-purple-700/50 rounded-full">ออร่าไร้ลักษณ์</div>
+                        <div
+                            class="col-span-3 bg-gradient-to-b from-stone-900/90 via-stone-950 to-black border border-amber-900/70 rounded-xl min-h-[17rem] flex flex-col items-center justify-between p-2.5 relative shadow-inner portrait-glow">
+                            <!-- Character Title -->
+                            <div class="text-[11px] text-amber-200/90 font-bold tracking-wide truncate max-w-full text-center"
+                                id="avatar-title">จอมเวทพเนจร</div>
+
+                            <!-- Pixel Art Portrait Avatar -->
+                            <div class="my-1.5 flex flex-col items-center relative group">
+                                <div
+                                    class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-xl overflow-hidden border-2 border-amber-600/80 shadow-[0_0_15px_rgba(245,158,11,0.35)] bg-stone-950">
+                                    <img id="avatar-img"
+                                        class="w-full h-full object-cover pixelated transition-transform duration-300 group-hover:scale-105"
+                                        src="assets/avatars/cultivator.jpg" alt="Avatar"
+                                        onerror="this.classList.add('hidden'); document.getElementById('avatar-icon').classList.remove('hidden');">
+                                    <div id="avatar-icon"
+                                        class="hidden absolute inset-0 flex items-center justify-center text-5xl">🧙‍♂️
+                                    </div>
+                                </div>
+                                <!-- Dynamic Aura Badge -->
+                                <div id="avatar-aura"
+                                    class="text-[11px] text-purple-200 mt-1.5 font-semibold px-2.5 py-0.5 bg-purple-950/80 border border-purple-600/60 rounded-full shadow-sm text-center max-w-[150px] truncate">
+                                    ✨ ออร่าไร้ลักษณ์
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2">
-                                <div class="px-2 py-0.5 rounded bg-rose-950 border border-rose-700 text-[10px] text-rose-300">🩸 บอบช้ำ: <span id="stat-strain">0</span>%</div>
-                                <div class="px-2 py-0.5 rounded bg-orange-950 border border-orange-700 text-[10px] text-orange-300">👁️ เพ่งเล็ง: <span id="stat-suspicion">0</span>%</div>
+
+                            <!-- Strain & Suspicion Badges -->
+                            <div class="flex items-center gap-1.5 w-full justify-center">
+                                <div class="px-2 py-0.5 rounded bg-rose-950/80 border border-rose-700/80 text-[10px] text-rose-300 shadow-sm"
+                                    title="สภาวะมานาโอเวอร์โหลดสะสม (ถึง 100% วงจรมานาระเบิดดับสูญ)">🩸 โอเวอร์โหลด:
+                                    <span id="stat-strain" class="font-bold">0</span>%</div>
+                                <div class="px-2 py-0.5 rounded bg-orange-950/80 border border-orange-700/80 text-[10px] text-orange-300 shadow-sm"
+                                    title="การถูกจับตามองของศาสนจักรและสภาเวทมนตร์ (ถึง 100% ถูกกวาดล้าง)">👁️ จับตามอง:
+                                    <span id="stat-suspicion" class="font-bold">0</span>%</div>
                             </div>
                         </div>
 
                         <div class="space-y-2.5 flex flex-col items-center">
-                            <div onclick="unequipSlot('helm')" id="slot-helm" class="rpg-slot empty w-14 h-14 rounded-lg flex flex-col items-center justify-center cursor-pointer relative"><span class="text-xl">👑</span><span class="text-[9px] text-stone-400 mt-0.5">ศีรษะ</span></div>
-                            <div onclick="unequipSlot('necklace')" id="slot-necklace" class="rpg-slot empty w-14 h-14 rounded-lg flex flex-col items-center justify-center cursor-pointer relative"><span class="text-xl">📿</span><span class="text-[9px] text-stone-400 mt-0.5">สร้อยคอ</span></div>
-                            <div onclick="unequipSlot('relic')" id="slot-relic" class="rpg-slot empty w-14 h-14 rounded-lg flex flex-col items-center justify-center cursor-pointer relative"><span class="text-xl">🔮</span><span class="text-[9px] text-stone-400 mt-0.5">สมบัติวิเศษ</span></div>
-                            <div onclick="unequipSlot('boots')" id="slot-boots" class="rpg-slot empty w-14 h-14 rounded-lg flex flex-col items-center justify-center cursor-pointer relative"><span class="text-xl">🥾</span><span class="text-[9px] text-stone-400 mt-0.5">รองเท้า</span></div>
+                            <div onclick="unequipSlot('helm')" id="slot-helm"
+                                class="rpg-slot empty w-14 h-14 rounded-lg flex flex-col items-center justify-center cursor-pointer relative">
+                                <span class="text-xl">👑</span><span
+                                    class="text-[9px] text-stone-400 mt-0.5">ศีรษะ</span></div>
+                            <div onclick="unequipSlot('necklace')" id="slot-necklace"
+                                class="rpg-slot empty w-14 h-14 rounded-lg flex flex-col items-center justify-center cursor-pointer relative">
+                                <span class="text-xl">📿</span><span
+                                    class="text-[9px] text-stone-400 mt-0.5">สร้อยคอ</span></div>
+                            <div onclick="unequipSlot('relic')" id="slot-relic"
+                                class="rpg-slot empty w-14 h-14 rounded-lg flex flex-col items-center justify-center cursor-pointer relative">
+                                <span class="text-xl">🔮</span><span
+                                    class="text-[9px] text-stone-400 mt-0.5">วัตถุเวท</span></div>
+                            <div onclick="unequipSlot('boots')" id="slot-boots"
+                                class="rpg-slot empty w-14 h-14 rounded-lg flex flex-col items-center justify-center cursor-pointer relative">
+                                <span class="text-xl">🥾</span><span
+                                    class="text-[9px] text-stone-400 mt-0.5">รองเท้า</span></div>
                         </div>
                     </div>
-                    
+
                     <div class="mt-4 space-y-2 pt-3 border-t border-amber-900/40">
                         <div class="flex items-center gap-2">
-                            <span class="text-xs font-bold text-red-400 w-16">พลังชีวิต</span>
+                            <span class="text-xs font-bold text-red-400 w-24">❤️ พลังชีวิต (HP)</span>
                             <div class="flex-1 bg-stone-950 h-4 rounded-full border border-red-900/80 relative">
                                 <div id="bar-hp" class="bg-gradient-to-r from-red-700 to-red-500 h-full w-full"></div>
-                                <span id="text-hp" class="absolute inset-0 text-[11px] flex justify-center font-bold text-white">100/100</span>
+                                <span id="text-hp"
+                                    class="absolute inset-0 text-[11px] flex justify-center font-bold text-white">100/100</span>
                             </div>
                         </div>
                         <div class="flex items-center gap-2">
-                            <span class="text-xs font-bold text-sky-400 w-16">พลังเวท</span>
+                            <span class="text-xs font-bold text-sky-400 w-24">🔷 พลังเวท (MP)</span>
                             <div class="flex-1 bg-stone-950 h-4 rounded-full border border-sky-900/80 relative">
                                 <div id="bar-mp" class="bg-gradient-to-r from-blue-700 to-sky-400 h-full w-full"></div>
-                                <span id="text-mp" class="absolute inset-0 text-[11px] flex justify-center font-bold text-white">100/100</span>
+                                <span id="text-mp"
+                                    class="absolute inset-0 text-[11px] flex justify-center font-bold text-white">100/100</span>
                             </div>
                         </div>
                     </div>
@@ -125,32 +223,69 @@
                 <!-- Right: Stats & Inventory -->
                 <div class="lg:col-span-5 flex flex-col justify-between space-y-3">
                     <div class="bg-black/30 border border-amber-900/50 rounded-xl p-3.5">
-                        <h3 class="text-xs font-bold text-amber-400 border-b border-amber-900/50 pb-1.5 mb-2.5 text-center">⚔️ ค่าสถานะการรบ</h3>
-                        <div class="grid grid-cols-2 gap-y-2 gap-x-4 text-xs">
-                            <div class="flex justify-between"><span class="text-stone-400">โจมตี:</span><span id="combat-atk" class="font-bold text-amber-300">0</span></div>
-                            <div class="flex justify-between"><span class="text-stone-400">ป้องกัน:</span><span id="combat-def" class="font-bold text-amber-300">0</span></div>
-                            <div class="flex justify-between"><span class="text-stone-400">คริติคอล:</span><span id="combat-crit" class="font-bold text-red-400">0%</span></div>
-                            <div class="flex justify-between"><span class="text-stone-400">หลบหลีก:</span><span id="combat-eva" class="font-bold text-emerald-400">0%</span></div>
-                            <div class="flex justify-between"><span class="text-stone-400">ความเร็ว:</span><span id="combat-spd" class="font-bold text-cyan-400">100</span></div>
-                            <div class="flex justify-between"><span class="text-stone-400">วาสนา:</span><span id="combat-luck" class="font-bold text-emerald-400">50</span></div>
+                        <h3
+                            class="text-xs font-bold text-amber-400 border-b border-amber-900/50 pb-1.5 mb-2.5 text-center">
+                            ⚔️ ค่าสถานะการรบ (Combat Stats)</h3>
+                        <div class="grid grid-cols-2 gap-y-2.5 gap-x-4 text-xs">
+                            <div
+                                class="flex justify-between items-center bg-stone-900/50 px-2 py-1 rounded border border-stone-800/80">
+                                <span class="text-stone-300">⚔️ โจมตี (ATK):</span><span id="combat-atk"
+                                    class="font-bold text-amber-300">0</span></div>
+                            <div
+                                class="flex justify-between items-center bg-stone-900/50 px-2 py-1 rounded border border-stone-800/80">
+                                <span class="text-stone-300">🛡️ ป้องกัน (DEF):</span><span id="combat-def"
+                                    class="font-bold text-amber-300">0</span></div>
+                            <div
+                                class="flex justify-between items-center bg-stone-900/50 px-2 py-1 rounded border border-stone-800/80">
+                                <span class="text-stone-300">💥 คริติคอล (CRIT):</span><span id="combat-crit"
+                                    class="font-bold text-red-400">0%</span></div>
+                            <div
+                                class="flex justify-between items-center bg-stone-900/50 px-2 py-1 rounded border border-stone-800/80">
+                                <span class="text-stone-300">💨 หลบหลีก (EVA):</span><span id="combat-eva"
+                                    class="font-bold text-emerald-400">0%</span></div>
+                            <div
+                                class="flex justify-between items-center bg-stone-900/50 px-2 py-1 rounded border border-stone-800/80">
+                                <span class="text-stone-300">⚡ ความเร็ว (SPD):</span><span id="combat-spd"
+                                    class="font-bold text-cyan-400">100</span></div>
+                            <div
+                                class="flex justify-between items-center bg-stone-900/50 px-2 py-1 rounded border border-stone-800/80">
+                                <span class="text-stone-300">🍀 วาสนา (LUCK):</span><span id="combat-luck"
+                                    class="font-bold text-emerald-400">50</span></div>
                         </div>
                     </div>
 
                     <div class="bg-black/30 border border-amber-900/50 rounded-xl p-3.5">
                         <div class="flex justify-between items-center border-b border-amber-900/50 pb-1.5 mb-2.5">
-                            <h3 class="text-xs font-bold text-amber-400">📊 คุณสมบัติพื้นฐาน</h3>
+                            <h3 class="text-xs font-bold text-amber-400">📊 คุณสมบัติพื้นฐาน (Attributes)</h3>
                         </div>
                         <div class="space-y-1.5 text-xs">
-                            <div class="flex justify-between bg-stone-900/70 px-2.5 py-1 rounded border border-stone-800"><span class="text-stone-300">STR</span><span id="attr-str" class="font-bold text-white">10</span></div>
-                            <div class="flex justify-between bg-stone-900/70 px-2.5 py-1 rounded border border-stone-800"><span class="text-stone-300">VIT</span><span id="attr-vit" class="font-bold text-white">10</span></div>
-                            <div class="flex justify-between bg-stone-900/70 px-2.5 py-1 rounded border border-stone-800"><span class="text-stone-300">AGI</span><span id="attr-agi" class="font-bold text-white">10</span></div>
-                            <div class="flex justify-between bg-stone-900/70 px-2.5 py-1 rounded border border-stone-800"><span class="text-stone-300">SPR</span><span id="attr-spr" class="font-bold text-white">10</span></div>
+                            <div
+                                class="flex justify-between items-center bg-stone-900/70 px-2.5 py-1.5 rounded border border-stone-800">
+                                <span class="text-stone-300 flex items-center gap-1.5">💪 พละกำลัง (STR)</span>
+                                <span id="attr-str" class="font-bold text-amber-200 text-sm">10</span>
+                            </div>
+                            <div
+                                class="flex justify-between items-center bg-stone-900/70 px-2.5 py-1.5 rounded border border-stone-800">
+                                <span class="text-stone-300 flex items-center gap-1.5">🛡️ ความทนทาน (VIT)</span>
+                                <span id="attr-vit" class="font-bold text-emerald-200 text-sm">10</span>
+                            </div>
+                            <div
+                                class="flex justify-between items-center bg-stone-900/70 px-2.5 py-1.5 rounded border border-stone-800">
+                                <span class="text-stone-300 flex items-center gap-1.5">💨 ความว่องไว (AGI)</span>
+                                <span id="attr-agi" class="font-bold text-sky-200 text-sm">10</span>
+                            </div>
+                            <div
+                                class="flex justify-between items-center bg-stone-900/70 px-2.5 py-1.5 rounded border border-stone-800">
+                                <span class="text-stone-300 flex items-center gap-1.5">🔮 จิตวิญญาณ (SPR)</span>
+                                <span id="attr-spr" class="font-bold text-purple-200 text-sm">10</span>
+                            </div>
                         </div>
                     </div>
 
                     <div class="bg-black/30 border border-amber-900/50 rounded-xl p-3">
                         <div class="flex justify-between items-center mb-2">
-                            <h3 class="text-xs font-bold text-amber-400">🎒 กระเป๋ามิติ</h3><span id="bag-count" class="text-[10px] text-stone-400">0/6</span>
+                            <h3 class="text-xs font-bold text-amber-400">🎒 มิติมนตราเก็บของ</h3><span id="bag-count"
+                                class="text-[10px] text-stone-400">0/6</span>
                         </div>
                         <div id="inventory-grid" class="grid grid-cols-6 gap-2"></div>
                     </div>
@@ -160,8 +295,10 @@
             <!-- Log -->
             <div class="bg-black/60 border border-amber-900/50 rounded-xl p-3">
                 <div class="flex justify-between items-center mb-1.5">
-                    <span class="text-xs font-bold text-amber-400">📖 บันทึกเส้นทางชีวิต</span>
-                    <button onclick="resetGame()" class="text-xs bg-stone-800 hover:bg-stone-700 text-stone-300 px-3 py-1 rounded border border-stone-600 transition">🔄 เกิดใหม่</button>
+                    <span class="text-xs font-bold text-amber-400">📜 บันทึกตำนานมนตรา</span>
+                    <button onclick="resetGame()"
+                        class="text-xs bg-stone-800 hover:bg-stone-700 text-stone-300 px-3 py-1 rounded border border-stone-600 transition">🔄
+                        กำเนิดใหม่</button>
                 </div>
                 <div class="h-36 overflow-y-auto flex flex-col-reverse pr-1" id="log-container">
                     <div id="log-content" class="text-xs sm:text-sm text-stone-300 space-y-1.5"></div>
@@ -170,15 +307,118 @@
         </div>
 
         <!-- Event Modal -->
-        <div id="event-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-            <div class="rpg-panel rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
-                <div class="flex justify-between border-b border-amber-900/60 pb-3">
-                    <span class="text-xs font-bold px-2.5 py-1 bg-amber-500/20 text-amber-300 rounded-full">⚡ ทางแยกโชคชะตา</span>
-                    <span id="modal-age" class="text-xs text-stone-400">อายุ 0 ปี</span>
+        <div id="event-modal"
+            class="hidden fixed inset-0 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 z-50">
+            <div
+                class="rpg-panel rounded-2xl max-w-xl w-full p-5 sm:p-6 shadow-2xl space-y-3.5 border border-amber-600/70 max-h-[92vh] flex flex-col overflow-y-auto">
+                <!-- Modal Top Header & Player HUD -->
+                <div class="flex flex-wrap justify-between items-center border-b border-amber-900/60 pb-2.5 gap-2">
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="text-xs font-bold px-2.5 py-1 bg-amber-500/20 text-amber-300 rounded-full border border-amber-500/40">⚡
+                            ทางแยกแห่งโชคชะตามนตรา</span>
+                        <span id="modal-age" class="text-xs text-stone-400 font-medium">อายุ 0 ปี</span>
+                    </div>
+
+                    <!-- Quick Player Status in Modal Top Right -->
+                    <div
+                        class="flex flex-wrap items-center gap-1.5 text-xs bg-black/70 px-2.5 py-1 rounded-xl border border-amber-900/50 shadow-inner">
+                        <div class="flex items-center gap-1 text-amber-300 font-bold bg-amber-950/60 px-2 py-0.5 rounded border border-amber-700/60 shadow-sm"
+                            title="เหรียญทองปัจจุบัน">
+                            <span>💰</span><span id="modal-hud-gold">0</span> <span
+                                class="text-[10px] text-amber-400/80 font-normal">เหรียญ</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-red-300 text-[11px] bg-red-950/60 px-1.5 py-0.5 rounded border border-red-800/50"
+                            title="พลังชีวิต">
+                            <span>❤️</span><span id="modal-hud-hp">100/100</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-sky-300 text-[11px] bg-sky-950/60 px-1.5 py-0.5 rounded border border-sky-800/50"
+                            title="พลังเวท">
+                            <span>🔷</span><span id="modal-hud-mp">100/100</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-rose-300 text-[11px] bg-rose-950/60 px-1.5 py-0.5 rounded border border-rose-800/50"
+                            title="สภาวะมานาโอเวอร์โหลดสะสม (ถึง 100% วงจรมานาระเบิดดับสูญ)">
+                            <span>🩸</span><span id="modal-hud-strain">0%</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-orange-300 text-[11px] bg-orange-950/60 px-1.5 py-0.5 rounded border border-orange-800/50"
+                            title="การถูกจับตามองของศาสนจักรและสภาเวทมนตร์ (ถึง 100% ถูกกวาดล้าง)">
+                            <span>👁️</span><span id="modal-hud-suspicion">0%</span>
+                        </div>
+                    </div>
                 </div>
-                <h2 id="modal-title" class="text-lg font-bold text-amber-300">-</h2>
-                <p id="modal-desc" class="text-sm text-stone-300">-</p>
-                <div id="modal-choices" class="space-y-2.5 pt-2"></div>
+
+                <!-- Attributes Strip in Modal -->
+                <div
+                    class="grid grid-cols-3 sm:grid-cols-6 gap-1.5 text-[11px] bg-stone-950/70 p-2 rounded-xl border border-stone-800/90 text-stone-300">
+                    <div class="flex justify-between items-center px-1.5 py-0.5 rounded bg-stone-900/80"
+                        title="พละกำลัง">
+                        <span class="text-stone-400">💪 STR:</span><span id="modal-hud-str"
+                            class="font-bold text-amber-200">10</span>
+                    </div>
+                    <div class="flex justify-between items-center px-1.5 py-0.5 rounded bg-stone-900/80"
+                        title="ความทนทาน">
+                        <span class="text-stone-400">🛡️ VIT:</span><span id="modal-hud-vit"
+                            class="font-bold text-emerald-200">10</span>
+                    </div>
+                    <div class="flex justify-between items-center px-1.5 py-0.5 rounded bg-stone-900/80"
+                        title="ความว่องไว">
+                        <span class="text-stone-400">💨 AGI:</span><span id="modal-hud-agi"
+                            class="font-bold text-sky-200">10</span>
+                    </div>
+                    <div class="flex justify-between items-center px-1.5 py-0.5 rounded bg-stone-900/80"
+                        title="จิตวิญญาณ">
+                        <span class="text-stone-400">🔮 SPR:</span><span id="modal-hud-spr"
+                            class="font-bold text-purple-200">10</span>
+                    </div>
+                    <div class="flex justify-between items-center px-1.5 py-0.5 rounded bg-stone-900/80" title="วาสนา">
+                        <span class="text-stone-400">🍀 LUCK:</span><span id="modal-hud-luck"
+                            class="font-bold text-emerald-300">50</span>
+                    </div>
+                    <div class="flex justify-between items-center px-1.5 py-0.5 rounded bg-stone-900/80"
+                        title="ลำดับวงแหวนเวท">
+                        <span class="text-stone-400">⚡ วงแหวน:</span><span id="modal-hud-realm"
+                            class="font-bold text-cyan-300">1</span>
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <h2 id="modal-title" class="text-base sm:text-lg font-bold text-amber-300 tracking-wide">-</h2>
+                    <p id="modal-desc"
+                        class="text-xs sm:text-sm text-stone-300 leading-relaxed bg-black/30 p-2.5 rounded-lg border border-stone-800/60">
+                        -</p>
+                </div>
+
+                <!-- Modal Choices List -->
+                <div id="modal-choices" class="space-y-2.5 pt-1"></div>
+            </div>
+        </div>
+
+        <!-- Mana Choice Modal (สำหรับเลือกเมื่อได้รูปแบบพลังใหม่เกิน 2 ชนิด) -->
+        <div id="mana-modal"
+            class="hidden fixed inset-0 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 z-50">
+            <div
+                class="rpg-panel rounded-2xl max-w-lg w-full p-5 sm:p-6 shadow-2xl space-y-4 border border-purple-500/80 flex flex-col">
+                <div class="flex items-center gap-2 border-b border-purple-900/60 pb-2.5">
+                    <span
+                        class="text-xs font-bold px-2.5 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/40">🔮
+                        ค้นพบศาสตร์มนตราใหม่</span>
+                    <span class="text-xs text-stone-400">เลือกสลักวงจรมนตรา</span>
+                </div>
+
+                <div class="space-y-1.5">
+                    <h2 id="mana-modal-title" class="text-base sm:text-lg font-bold text-amber-300">
+                        ค้นพบศาสตร์มนตราธาตุใหม่!</h2>
+                    <p
+                        class="text-xs sm:text-sm text-stone-300 leading-relaxed bg-black/40 p-3 rounded-lg border border-purple-900/40">
+                        วงจรมานาในร่างของท่านสามารถรองรับสายพลังเวทได้สูงสุดเพียง <span
+                            class="text-purple-300 font-bold">2 ธาตุ</span> เท่านั้น! หากต้องการสลักศาสตร์ใหม่นี้
+                        ท่านต้องเลือกแทนที่ศาสตร์เดิม 1 ชนิด หรือเลือกสละศาสตร์ใหม่เพื่อรักษาสมดุลวงจรมานาเดิมไว้
+                    </p>
+                </div>
+
+                <div id="mana-modal-choices" class="space-y-2.5">
+                    <!-- Choices dynamically inserted here -->
+                </div>
             </div>
         </div>
     </div>
@@ -190,4 +430,5 @@
     <script src="js/events.js"></script>
     <script src="js/saveLoad.js"></script>
 </body>
+
 </html>

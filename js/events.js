@@ -10,7 +10,10 @@ function getStatValue(statName, player) {
         return typeof plv === 'function' ? plv(player) : (player.realm * 100 + player.exp);
     }
     if (statName === 'demonic') {
-        return player.manaObj?.isDemonic ? 1 : 0;
+        return (player.manaObj?.isDemonic || player.manas?.some(m => m && m.isDemonic)) ? 1 : 0;
+    }
+    if (statName === 'kingdom') {
+        return player.kingdom?.name || '';
     }
     if (statName === 'expToNext') {
         const nextReq = getExpToNext(player.realm);
@@ -64,7 +67,13 @@ function applyEffects(effects, player) {
                 break;
 
             case 'set':
-                if (eff.stat) {
+                if (eff.stat === 'kingdom' && gameData.kingdoms) {
+                    const foundK = gameData.kingdoms.find(k => k.name === eff.value);
+                    if (foundK) {
+                        player.kingdom = foundK;
+                        addLog(`🏰 โยกย้ายถิ่นฐาน ลี้ภัยสู่ <b>${foundK.name}</b>`, "text-amber-300");
+                    }
+                } else if (eff.stat) {
                     player[eff.stat] = eff.value;
                 }
                 break;
@@ -114,6 +123,16 @@ function applyEffects(effects, player) {
                 }
                 break;
 
+            case 'learnMana': {
+                if (eff.mana && gameData.manas) {
+                    const foundMana = gameData.manas.find(m => m.name === eff.mana || m.id === eff.mana);
+                    if (foundMana && typeof acquireNewMana === 'function') {
+                        acquireNewMana(foundMana);
+                    }
+                }
+                break;
+            }
+
             case 'die':
                 die(eff.reason || "สิ้นชีพกะทันหัน");
                 break;
@@ -132,6 +151,27 @@ function calculateRollChance(chanceConfig, player) {
     return Math.min(0.95, Math.max(0.05, base + luckBonus + powerBonus));
 }
 
+function getStatLabel(stat) {
+    const labels = {
+        'gold': '💰 ทอง',
+        'str': '💪 พละกำลัง (STR)',
+        'vit': '🛡️ ความทนทาน (VIT)',
+        'agi': '💨 ความว่องไว (AGI)',
+        'spr': '🔮 จิตวิญญาณ (SPR)',
+        'luck': '🍀 วาสนา (LUCK)',
+        'realm': '⚡ ขั้นพลัง (Realm)',
+        'hp': '❤️ พลังชีวิต (HP)',
+        'mp': '🔷 พลังเวท (MP)',
+        'strain': '🩸 บอบช้ำ (Strain)',
+        'suspicion': '👁️ เพ่งเล็ง (Suspicion)',
+        'power': '⚡ พลังรวม (PLv)',
+        'demonic': '🔥 พลังมาร'
+    };
+    if (stat.startsWith('event:')) return `📜 เควสต์ [${stat.substring(6)}]`;
+    if (stat.startsWith('hasItem:')) return `🎒 มีไอเทม [${stat.substring(8)}]`;
+    return labels[stat] || stat;
+}
+
 function triggerModalEvent(eventObj) {
     clearInterval(progressTimer);
     isModalOpen = true;
@@ -145,24 +185,86 @@ function triggerModalEvent(eventObj) {
     if (modalTitle) modalTitle.innerText = eventObj.title || 'เหตุการณ์ไม่คาดฝัน';
     if (modalDesc) modalDesc.innerText = eventObj.desc || '';
 
+    // อัปเดตข้อมูลสถานะด่วนของผู้เล่นบนหัวป๊อปอัป (Modal Player HUD)
+    const setModalHud = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = val;
+    };
+
+    setModalHud('modal-hud-gold', player.gold ?? 0);
+    setModalHud('modal-hud-hp', `${player.hp ?? 0}/${player.maxHp ?? 100}`);
+    setModalHud('modal-hud-mp', `${player.mp ?? 0}/${player.maxMp ?? 100}`);
+    setModalHud('modal-hud-strain', `${player.strain ?? 0}%`);
+    setModalHud('modal-hud-suspicion', `${player.suspicion ?? 0}%`);
+    setModalHud('modal-hud-str', player.str ?? 10);
+    setModalHud('modal-hud-vit', player.vit ?? 10);
+    setModalHud('modal-hud-agi', player.agi ?? 10);
+    setModalHud('modal-hud-spr', player.spr ?? 10);
+    setModalHud('modal-hud-luck', player.luck ?? 50);
+    setModalHud('modal-hud-realm', player.realm ?? 1);
+
     if (!choicesDiv) return;
     choicesDiv.innerHTML = "";
 
     eventObj.choices.forEach((choice, idx) => {
-        const canChoose = !choice.if || choice.if.every(cond => evaluateCondition(cond, player));
+        const conditionBadges = [];
+        let canChoose = true;
+
+        // ตรวจสอบเงื่อนไข if
+        if (choice.if && Array.isArray(choice.if)) {
+            choice.if.forEach(cond => {
+                const currentVal = getStatValue(cond.stat, player);
+                const passed = evaluateCondition(cond, player);
+                if (!passed) canChoose = false;
+
+                const statName = getStatLabel(cond.stat);
+                const op = cond.op || '>=';
+                const reqVal = cond.value ?? 0;
+
+                if (passed) {
+                    conditionBadges.push(`<span class="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-300 border border-emerald-600/60 font-medium">✔ ต้องการ ${statName} ${op} ${reqVal} (มีอยู่: ${currentVal})</span>`);
+                } else {
+                    conditionBadges.push(`<span class="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded bg-rose-950/90 text-rose-300 border border-rose-600/70 font-medium">✖ ต้องการ ${statName} ${op} ${reqVal} (มีอยู่: ${currentVal})</span>`);
+                }
+            });
+        }
+
+        // ตรวจสอบค่าใช้จ่ายทองและผลกระทบสำคัญ
+        const costBadges = [];
+        if (choice.effects && Array.isArray(choice.effects)) {
+            choice.effects.forEach(eff => {
+                if (eff.op === 'add' && eff.stat === 'gold') {
+                    if (eff.value < 0) {
+                        const canAfford = (player.gold || 0) >= Math.abs(eff.value);
+                        costBadges.push(`<span class="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded ${canAfford ? 'bg-amber-950/80 text-amber-300 border border-amber-600/60' : 'bg-red-950/90 text-red-300 border border-red-700/60'} font-semibold">💸 เสีย ${Math.abs(eff.value)} ทอง ${canAfford ? '(มีพอจ่าย)' : '(ทองไม่พอ!)'}</span>`);
+                    } else if (eff.value > 0) {
+                        costBadges.push(`<span class="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-600/60 font-semibold">💰 ได้รับ +${eff.value} ทอง</span>`);
+                    }
+                }
+            });
+        }
+
+        // ตรวจสอบโอกาสทอยเต๋า Roll
+        if (choice.roll) {
+            const chancePct = Math.round(calculateRollChance(choice.roll.chance, player) * 100);
+            costBadges.push(`<span class="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded bg-purple-950/80 text-purple-300 border border-purple-600/60 font-semibold">🎲 โอกาสสำเร็จ ~${chancePct}%</span>`);
+        }
 
         const btn = document.createElement('button');
         btn.className = canChoose
-            ? "w-full text-left p-3.5 rounded-xl bg-stone-900 border border-amber-700/60 text-stone-200 hover:bg-stone-800 hover:border-amber-500 transition cursor-pointer shadow-md"
-            : "w-full text-left p-3.5 rounded-xl bg-stone-950/70 border border-stone-800 text-stone-600 cursor-not-allowed opacity-60";
+            ? "w-full text-left p-3.5 rounded-xl bg-stone-900 border border-amber-700/60 text-stone-200 hover:bg-stone-800 hover:border-amber-400 transition cursor-pointer shadow-md space-y-1.5"
+            : "w-full text-left p-3.5 rounded-xl bg-stone-950/70 border border-stone-800 text-stone-500 cursor-not-allowed opacity-60 space-y-1.5";
 
-        let choiceLabel = choice.text;
-        if (!canChoose && choice.if) {
-            const missingText = choice.if.map(c => `[ต้องการ ${c.stat} ${c.op || '>='} ${c.value}]`).join(' ');
-            choiceLabel += ` <span class="text-xs text-red-500">${missingText}</span>`;
+        let htmlContent = `<div class="font-medium text-sm leading-snug">${choice.text}</div>`;
+
+        if (conditionBadges.length > 0 || costBadges.length > 0) {
+            htmlContent += `<div class="flex flex-wrap gap-1.5 pt-0.5">`;
+            if (conditionBadges.length > 0) htmlContent += conditionBadges.join(' ');
+            if (costBadges.length > 0) htmlContent += costBadges.join(' ');
+            htmlContent += `</div>`;
         }
 
-        btn.innerHTML = choiceLabel;
+        btn.innerHTML = htmlContent;
         btn.disabled = !canChoose;
 
         if (canChoose) {

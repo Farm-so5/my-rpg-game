@@ -7,10 +7,18 @@
 
 function getExpToNext(realm) {
     const table = gameData.balance?.cultivation?.expToNext;
+    let baseReq = 100 * Math.pow(2, realm);
     if (table && Array.isArray(table)) {
-        return table[Math.min(realm, table.length - 1)] || 100000;
+        baseReq = table[Math.min(realm, table.length - 1)] || 100000;
     }
-    return 100 * Math.pow(2, realm);
+    // ภาระจิตสองสาย: หากฝึก 2 พลังโดยไม่มีคัมภีร์หยินหยางผสานเต๋า เพิ่มความยากในการทะลวงขั้น 10%
+    if (typeof player !== 'undefined' && player?.manas?.length === 2) {
+        const hasYY = typeof hasYinYangEnlightenment === 'function' ? hasYinYangEnlightenment(player) : false;
+        if (!hasYY) {
+            baseReq = Math.round(baseReq * 1.10);
+        }
+    }
+    return baseReq;
 }
 
 // ระดับพลังต่อเนื่อง (Continuous Power Level): realm + เศษความก้าวหน้า
@@ -31,16 +39,37 @@ function calculateCombatStats() {
     };
 
     const powerFactor = Math.max(1, 1 + plv(player) * 0.4);
-    const manaAtk = player.manaObj?.atkMod ?? 1.0;
-    const manaDef = player.manaObj?.defMod ?? 1.0;
-    const manaCrit = player.manaObj?.critBonus ?? 0;
-    const manaEva = player.manaObj?.evaBonus ?? 0;
 
-    let atk = Math.round((player.str * balCombat.strAtkMod + player.spr * balCombat.sprAtkMod) * powerFactor * manaAtk);
-    let def = Math.round((player.vit * balCombat.vitDefMod + player.spr * balCombat.sprDefMod) * powerFactor * manaDef);
-    let crit = Math.min(95, Math.round(player.agi * balCombat.agiCritMod + manaCrit));
-    let eva = Math.min(85, Math.round(player.agi * balCombat.agiEvaMod + manaEva));
-    let spd = Math.round(balCombat.baseSpd + player.agi * balCombat.agiSpdMod + plv(player) * 12);
+    // พลังหลัก (Primary Mana)
+    const m1 = player.primaryMana || player.manas?.[0] || player.manaObj;
+    let manaAtk = m1?.atkMod ?? 1.0;
+    let manaDef = m1?.defMod ?? 1.0;
+    let manaCrit = m1?.critBonus ?? 0;
+    let manaEva = m1?.evaBonus ?? 0;
+
+    // พลังรอง (Secondary Mana) ให้ผล 40% เพื่อรักษาสมดุลไม่ให้ OP
+    const m2 = player.secondaryMana || player.manas?.[1] || null;
+    if (m2) {
+        const secEff = 0.40;
+        manaAtk += ((m2.atkMod ?? 1.0) - 1.0) * secEff;
+        manaDef += ((m2.defMod ?? 1.0) - 1.0) * secEff;
+        manaCrit += Math.round((m2.critBonus ?? 0) * secEff);
+        manaEva += Math.round((m2.evaBonus ?? 0) * secEff);
+    }
+
+    // ปฏิกิริยาทวิธาตุ (Elemental Resonance Buff/Debuff)
+    const res = typeof getPlayerResonance === 'function' ? getPlayerResonance(player) : null;
+    const resAtkMod = res?.atkMod ?? 1.0;
+    const resDefMod = res?.defMod ?? 1.0;
+    const resCritBonus = res?.critBonus ?? 0;
+    const resEvaBonus = res?.evaBonus ?? 0;
+    const resSpdBonus = res?.spdBonus ?? 0;
+
+    let atk = Math.round((player.str * balCombat.strAtkMod + player.spr * balCombat.sprAtkMod) * powerFactor * manaAtk * resAtkMod);
+    let def = Math.round((player.vit * balCombat.vitDefMod + player.spr * balCombat.sprDefMod) * powerFactor * manaDef * resDefMod);
+    let crit = Math.min(95, Math.max(0, Math.round(player.agi * balCombat.agiCritMod + manaCrit + resCritBonus)));
+    let eva = Math.min(85, Math.max(0, Math.round(player.agi * balCombat.agiEvaMod + manaEva + resEvaBonus)));
+    let spd = Math.round(balCombat.baseSpd + player.agi * balCombat.agiSpdMod + plv(player) * 12 + resSpdBonus);
 
     if (player.equipment) {
         Object.values(player.equipment).forEach(item => {

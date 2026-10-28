@@ -30,6 +30,10 @@ function saveGame() {
             kingdomName: player.kingdom?.name,
             originName: player.originObj?.name,
             manaName: player.manaObj?.name,
+            manaNames: (player.manas || [player.manaObj]).map(m => m ? m.name : player.manaObj?.name).filter(Boolean),
+            hasYinYangTao: !!player.hasYinYangTao,
+            rankTitle: player.rankTitle || "ผู้ฝึกตนพเนจร",
+            rankLevel: player.rankLevel || 0,
             age: player.age,
             maxAge: player.maxAge,
             realm: player.realm,
@@ -134,11 +138,21 @@ function loadGame() {
             });
         }
 
+        // คืนค่าทวิพลังมานา
+        const manaListNames = sp.manaNames || (sp.manaName ? [sp.manaName] : [mana.name]);
+        const restoredManas = manaListNames.map(name => gameData.manas.find(m => m.name === name) || mana);
+
         // ประกอบร่าง player
         player = {
             kingdom: kingdom,
             originObj: origin,
-            manaObj: mana,
+            manaObj: restoredManas[0] || mana,
+            manas: restoredManas,
+            primaryMana: restoredManas[0] || mana,
+            secondaryMana: restoredManas[1] || null,
+            hasYinYangTao: !!sp.hasYinYangTao,
+            rankTitle: sp.rankTitle || "ผู้ฝึกตนพเนจร",
+            rankLevel: sp.rankLevel || 0,
             age: sp.age,
             maxAge: sp.maxAge,
             realm: sp.realm,
