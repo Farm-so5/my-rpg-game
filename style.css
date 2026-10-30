@@ -16,3 +16,122 @@ body { background-color: #0b0a0e; color: #f8fafc; font-family: 'Segoe UI', Tahom
 .portrait-glow {
     box-shadow: 0 0 20px rgba(245, 158, 11, 0.25), inset 0 0 10px rgba(0,0,0,0.8);
 }
+
+/* ========================================================
+   LIGHT MODE (Grimoire / Ancient Parchment Theme)
+   ======================================================== */
+body.theme-light {
+    background-color: #f1ebd9;
+    color: #2b2520;
+}
+
+body.theme-light .rpg-panel {
+    background: linear-gradient(145deg, #fdf9f0, #eae0cb);
+    border: 2px solid #a38258;
+    box-shadow: 0 10px 30px rgba(90, 60, 20, 0.12), inset 0 0 15px rgba(255, 255, 255, 0.6);
+    color: #2b2520;
+}
+
+body.theme-light .rpg-slot {
+    background-color: #f6efe1;
+    border-color: #8b5cf6;
+    box-shadow: inset 0 0 6px rgba(139, 92, 246, 0.2);
+}
+
+body.theme-light .rpg-slot.empty {
+    border-color: #c4b096;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.06);
+}
+
+body.theme-light .rpg-slot:hover {
+    border-color: #d97706;
+}
+
+body.theme-light .portrait-glow {
+    box-shadow: 0 0 25px rgba(180, 120, 50, 0.25), inset 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+body.theme-light ::-webkit-scrollbar-track {
+    background: #eae0cb;
+}
+
+body.theme-light ::-webkit-scrollbar-thumb {
+    background: #a38258;
+}
+
+/* Light Theme Card Overrides */
+body.theme-light .bg-black\/30,
+body.theme-light .bg-black\/40,
+body.theme-light .bg-black\/45,
+body.theme-light .bg-black\/50,
+body.theme-light .bg-black\/60,
+body.theme-light .bg-stone-900,
+body.theme-light .bg-stone-900\/70,
+body.theme-light .bg-stone-900\/80,
+body.theme-light .bg-stone-950,
+body.theme-light .bg-stone-950\/60,
+body.theme-light .bg-stone-950\/70 {
+    background-color: rgba(238, 228, 210, 0.75) !important;
+    border-color: rgba(163, 130, 88, 0.45) !important;
+}
+
+body.theme-light .bg-purple-950\/20,
+body.theme-light .bg-purple-950\/30,
+body.theme-light .bg-purple-950\/40,
+body.theme-light .bg-purple-950\/90 {
+    background-color: rgba(237, 226, 248, 0.85) !important;
+    border-color: rgba(168, 125, 226, 0.55) !important;
+}
+
+body.theme-light .bg-amber-950\/50,
+body.theme-light .bg-amber-950\/60,
+body.theme-light .bg-amber-950\/70 {
+    background-color: rgba(250, 235, 210, 0.9) !important;
+    border-color: rgba(217, 150, 50, 0.6) !important;
+}
+
+body.theme-light .border-amber-900\/50,
+body.theme-light .border-amber-900\/60,
+body.theme-light .border-amber-900\/70 {
+    border-color: #c5a882 !important;
+}
+
+body.theme-light .text-stone-400 {
+    color: #6b5a4b !important;
+}
+
+body.theme-light .text-stone-300 {
+    color: #42362b !important;
+}
+
+body.theme-light .text-stone-500 {
+    color: #857260 !important;
+}
+
+body.theme-light .text-white {
+    color: #1e1713 !important;
+}
+
+body.theme-light .text-amber-300,
+body.theme-light .text-amber-400 {
+    color: #9a4c06 !important;
+}
+
+body.theme-light .text-emerald-400 {
+    color: #166534 !important;
+}
+
+body.theme-light .text-cyan-300,
+body.theme-light .text-cyan-400 {
+    color: #0369a1 !important;
+}
+
+body.theme-light .text-purple-200,
+body.theme-light .text-purple-300 {
+    color: #6b21a8 !important;
+}
+
+body.theme-light .text-yellow-300,
+body.theme-light .text-yellow-400 {
+    color: #b45309 !important;
+}

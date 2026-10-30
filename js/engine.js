@@ -575,6 +575,76 @@ function die(reason) {
 
     addLog(`💀 <b>[อายุ ${player.age} ปี]</b> ${reason}`, "text-red-400 font-bold");
     updateUI();
+    showDeathModal(reason);
+}
+
+function showDeathModal(reason) {
+    const modal = document.getElementById('death-modal');
+    if (!modal) return;
+
+    const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+    setTxt('death-summary-reason', reason || player.deathReason || 'สังขารดับสูญตามกาลเวลา');
+    setTxt('death-stat-age', `${player.age} ปี`);
+    setTxt('death-stat-realm', getRealmTitle(player.realm));
+    setTxt('death-stat-title', player.rankTitle || 'จอมเวทพเนจร');
+    setTxt('death-stat-kingdom', player.kingdom ? `${player.kingdom.icon || '🏰'} ${player.kingdom.name}` : '-');
+
+    let manaStr = player.manaObj ? `${player.manaObj.icon || '🔮'} ${player.manaObj.name}` : '-';
+    if (player.manas && player.manas.length > 1) {
+        manaStr = player.manas.map(m => `${m.icon || '🔮'} ${m.name}`).join(' + ');
+    }
+    setTxt('death-stat-mana', manaStr);
+    setTxt('death-stat-gold', `${player.gold || 0} เหรียญทอง`);
+
+    modal.classList.remove('hidden');
+}
+
+function closeDeathModal() {
+    const modal = document.getElementById('death-modal');
+    if (modal) modal.classList.add('hidden');
+}
+
+function reincarnateFromDeath() {
+    closeDeathModal();
+    startGame();
+}
+
+function toggleTheme() {
+    const isLight = document.body.classList.toggle('theme-light');
+    const iconEl = document.getElementById('theme-icon');
+    const labelEl = document.getElementById('theme-label');
+
+    if (isLight) {
+        if (iconEl) iconEl.innerText = "☀️";
+        if (labelEl) labelEl.innerText = "โหมดสว่าง";
+        try { localStorage.setItem('game_theme', 'light'); } catch (e) {}
+    } else {
+        if (iconEl) iconEl.innerText = "🌙";
+        if (labelEl) labelEl.innerText = "โหมดมืด";
+        try { localStorage.setItem('game_theme', 'dark'); } catch (e) {}
+    }
+}
+
+function initTheme() {
+    try {
+        const saved = localStorage.getItem('game_theme');
+        if (saved === 'light') {
+            document.body.classList.add('theme-light');
+            const iconEl = document.getElementById('theme-icon');
+            const labelEl = document.getElementById('theme-label');
+            if (iconEl) iconEl.innerText = "☀️";
+            if (labelEl) labelEl.innerText = "โหมดสว่าง";
+        }
+    } catch (e) {}
+}
+
+// Auto init theme on load
+if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initTheme);
+    } else {
+        initTheme();
+    }
 }
 
 function resetGame() {
@@ -582,6 +652,8 @@ function resetGame() {
     isModalOpen = false;
 
     document.getElementById('event-modal')?.classList.add('hidden');
+    document.getElementById('mana-modal')?.classList.add('hidden');
+    document.getElementById('death-modal')?.classList.add('hidden');
     document.getElementById('start-panel')?.classList.remove('hidden');
     document.getElementById('game-panel')?.classList.add('hidden');
     document.getElementById('time-controls')?.classList.add('hidden');
